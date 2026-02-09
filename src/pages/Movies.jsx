@@ -1,23 +1,22 @@
-import useFetch from "../hooks/useFetch";
-import Loader from "../components/Loader";
-import ErrorMessage from "../components/ErrorMessage";
+import { useEffect, useState } from "react";
+import api from "../api/axios";
+import MoviesList from "../components/MoviesList";
 
-export default function Movies() {
-  const { data, loading, error } = useFetch("http://localhost:3000/movies");
+function Movies() {
+  const [movies, setMovies] = useState([]);
 
-  if (loading) return <Loader />;
-  if (error) return <ErrorMessage message={error} />;
+  useEffect(() => {
+    api.get("/movies")
+      .then((res) => setMovies(res.data))
+      .catch((err) => console.error("Error cargando películas:", err));
+  }, []);
 
   return (
-    <div style={{ padding: "2rem" }}>
-      <h1>Movies</h1>
-      <ul>
-        {data.map(movie => (
-          <li key={movie.id}>
-            {movie.title} — ⭐ {movie.rating}
-          </li>
-        ))}
-      </ul>
+    <div>
+      <h1>Películas</h1>
+      <MoviesList movies={movies} />
     </div>
   );
 }
+
+export default Movies;
