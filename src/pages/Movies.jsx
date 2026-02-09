@@ -11,9 +11,9 @@ function Movies() {
 
   useEffect(() => {
     api
-      .get("/character") // Endpoint real de la API pública
+      .get("/character") // ← AQUÍ VA LA LLAMADA A LA API
       .then((res) => {
-        setMovies(res.data.data); // La API devuelve los datos dentro de "data.data"
+        setMovies(res.data.data); // La API devuelve los datos dentro de data.data
         setLoading(false);
       })
       .catch((err) => {
