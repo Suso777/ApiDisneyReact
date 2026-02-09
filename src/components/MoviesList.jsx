@@ -1,11 +1,15 @@
 import "./MoviesList.css";
+
 function MoviesList({ movies }) {
   return (
-    <ul className="movies-grid">
+    <div className="movies-grid">
       {movies.map((movie) => (
-        <li key={movie._id}>{movie.name}</li>
+        <div key={movie._id} className="movie-card">
+          <img src={movie.imageUrl} alt={movie.name} />
+          <h3>{movie.name}</h3>
+        </div>
       ))}
-    </ul>
+    </div>
   );
 }
 
